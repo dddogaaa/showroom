@@ -1,0 +1,33 @@
+.form-group {
+    margin-bottom: 30px;
+}
+
+.fs-sm-6-c {
+    font-size: 20px;
+}
+
+.accordion-button {
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    border-bottom: 1px solid #a0a0a04b;
+}
+
+.accordion {
+    --bs-accordion-border-color: none; 
+}
+
+.accordion-button:not(.collapsed) {
+    color: #212529;
+    background-color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-item:last-of-type>.accordion-header .accordion-button.collapsed {
+    border-bottom-right-radius: 0 !important; 
+    border-bottom-left-radius: 0 !important; 
+}
+

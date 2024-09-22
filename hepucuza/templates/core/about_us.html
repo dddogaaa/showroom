@@ -1,0 +1,33 @@
+{% extends "core/index.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+    <!-- Additional styles specific to this template -->
+    <link rel="stylesheet" href="{% static 'core/css/about_us.css' %}">
+    <style>
+      .container {
+        margin-bottom: 150px !important;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-between gap-5">
+        <div class="col-12 col-lg-5 d-flex justify-content-center ">
+            <div class="photo-container ">
+                <img class="img-fluid rounded-circle" src="{{ about_us.owner_photo.url }}" alt="">
+            </div>
+        </div>
+        <div class="col-12 col-md-12 col-lg-6 align-items-center justify-content-center">
+            <div>
+                {{ about_us.main_text|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

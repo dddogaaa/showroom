@@ -1,0 +1,307 @@
+{% extends "core/index.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+    <!-- Additional styles specific to this template -->
+    <link rel="stylesheet" href="{% static 'core/css/detail.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css" rel="stylesheet">
+    <style>
+      #thumbnail-slider-track {
+        padding-top: 30px; 
+      }
+      .container {
+        margin-bottom: 70px;
+      }
+      h4 {
+          font-size: 2rem;
+      }
+      .fs-6{
+        color: rgba(0, 0, 0, 0.599);
+      }
+      .price {
+        font-size: 30px;
+        font-weight: 300;
+      }
+      .btn {
+        --bs-btn-padding-x: 0.75rem;
+        --bs-btn-padding-y: 0.375rem;
+        --bs-btn-font-family: ;
+        --bs-btn-font-size: 1rem;
+        --bs-btn-font-weight: 400;
+        --bs-btn-line-height: 1.5;
+        --bs-btn-color: #1fb457;
+        --bs-btn-border-color: #1fb457;
+        --bs-btn-hover-border-color: #1fb457;
+        --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+        --bs-btn-disabled-opacity: 0.65;
+        --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+        font-size: var(--bs-btn-font-size);
+        font-weight: var(--bs-btn-font-weight);
+        line-height: var(--bs-btn-line-height);
+        color: var(--bs-btn-color);
+      }
+      .btn:hover {
+        color: white;
+        background-color:#1fb457;
+        border-color: var(--bs-btn-hover-border-color);
+      }
+      .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+        color: #1fb457;
+        background-color: white;
+        border-color: #1fb457;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+  <div class="row column-gap-5">
+    <div class="col-sm-12 col-md-5 col-lg-5 mb-3">
+      <div id="img-grid">
+        <!-- Main Image Splide -->
+        <div id="main-slider" class="splide mt-5">
+          <div class="splide__track">
+              <ul class="splide__list">
+                  {% for image in product.images.all %}
+                  <li class="splide__slide">
+                    <img id="product-image" src="{{ image.image }}" data-zoom-image="{{ image.image }}" alt="{{ product.name }}">
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+        </div>
+  
+        <!-- Thumbnail Images Splide -->
+        <div id="thumbnail-slider" class="splide" >
+          <div class="splide__track" >
+              <ul class="splide__list">
+                  {% for image in product.images.all %}
+                  <li class="splide__slide">
+                    <img src="{{ image.image }}" alt="{{ product.name }}">
+                  </li>
+                  {% endfor %}
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-5 mt-3 mb-5">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="tab-price-tab" data-bs-toggle="tab" href="#price-content" role="tab" aria-controls="price-content" aria-selected="true">Ürün Hakkında</a>
+          </li>
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="tab-detail-tab" data-bs-toggle="tab" href="#detail-content" role="tab" aria-controls="detail-content" aria-selected="false">Ürün Detayı</a>
+          </li>
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="tab-link1-tab" data-bs-toggle="tab" href="#link1-content" role="tab" aria-controls="link1-content" aria-selected="false">Geri Bildirim</a>
+          </li>
+      </ul>
+  
+      <div class="tab-content mt-3" id="myTabContent">
+          <div id="price-content" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-price-tab">
+            <h4 class="title text-dark">{{ product.name }}</h4>
+            <div class="fw-light" style="font-size: 20px;">
+              {{ product.short_description }}
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <div class="price" id="product-price">{{ product.price }} ₺</div>
+                </div>
+            </div>
+            <div class="row mt-4">
+              <div>
+                <i class="fa-brands fa-whatsapp fa-2xl me-2" style="color: #1fb457;"></i>
+                <a href="https://wa.me/1234567890" class="btn" target="_blank">
+                   Bizimle İletişime Geçin
+                </a>
+              </div>
+            </div>
+            <div class="mt-4">
+              {{ product.notes | safe }}
+            </div>
+            <table class="table table-bordered mt-4">
+              <tbody>
+                  <tr>
+                      <th scope="row">Genel Kategori</th>
+                      <td>
+                          {% for category in product.general_category.all %}  
+                              {{ category }}{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                      </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Materyal</th>
+                      <td>{{ product.bottle_type }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Hacim</th>
+                      <td>{{ product.bottle_volume }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Renk</th>
+                      <td>{{ product.bottle_color }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Ağız Şekli</th>
+                      <td>{{ product.bottle_cap_type }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Yükseklik</th>
+                      <td>{{ product.height }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Genişlik</th>
+                      <td>{{ product.width }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Çap</th>
+                      <td>{{ product.diameter }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">En</th>
+                      <td>{{ product.depth }}</td>
+                  </tr>
+                  <tr>
+                      <th scope="row">Ağırlık</th>
+                      <td>{{ product.weight }}</td>
+                  </tr>
+              </tbody>
+            </table>
+            <div class="info mt-4">
+              <div class="fs-6"><u>Şartlar ve Koşullar</u></div>
+              <div class="fs-6">30-gün para iade garantisi</div>
+              <div class="fs-6">Gönderim: 2-3 İş Günü</div>
+            </div>
+          </div>
+
+
+
+
+          <div id="detail-content" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-detail-tab">
+              <h4 class="title text-dark">{{ product.name }}</h4>
+              <div>
+                  {{ product.long_description | safe }}
+              </div>
+          </div>
+          <div id="link1-content" class="tab-pane fade" role="tabpanel" aria-labelledby="tab-link1-tab">
+              <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      {{ form.title }}
+                  </div>
+                  <div class="form-group mt-3">
+                      {{ form.comment }}
+                  </div>
+                  <div class="form-group mt-3">
+                      <label>Yorumda isminiz görünsün mü?</label>
+                      <div class="d-flex column-gap-2 mt-1">
+                          {% for radio in form.show_name %}
+                          {{ radio.tag }}
+                          <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                          {% endfor %}
+                      </div>
+                  </div>
+                  <button style="width: 100%;" type="submit" class="btn btn-outline-success fs-6 mt-3">Yorumu Gönder</button>
+              </form>
+          </div>
+      </div>
+  </div>
+  
+  </div>
+</div>
+</div>
+
+
+
+<div class="container">
+  <div class="d-flex justify-content-center mb-5">
+    <div class="align-items-center fs-2 fw-light">Benzer Ürünler <hr></div> 
+  </div>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+    <div class="wrapper">
+      <i class="arrow left"></i>
+      <ul class="carousel">
+          {% for product in products_to_display %}
+          <div class="col">
+            <div class="card h-100">
+                <a style="text-decoration: none; color: rgb(0, 0, 0);" href="{% url 'productspage_detail' product.slug %}">
+                  {% if product.first_image %}
+                  <img class="card-img-top img-fit" style="transform: scale(0.9); height: 270px; object-fit: contain;" src="{{ product.first_image }}" alt="{{ product.name }}"> 
+                  {% endif %}
+                  <div class="card-body justify-content-center border-top">
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_type }}</div>
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_volume }}</div>
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_cap_type }}</div>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center pt-0">
+                      <div class="fs-sm-6">{{ product.name  }}</div>
+                      <div class="fw-light text-gray fs-sm-6">{{ product.short_description }}</div>
+                  </div>
+                </a>
+              </div>
+            </div> 
+          {% endfor %}
+      </ul>
+      <i class="arrow right"></i>
+    </div>
+  </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- ElevateZoom -->
+<script src="https://cdn.rawgit.com/elevateweb/elevatezoom/master/jquery.elevatezoom.js"></script>
+
+<!-- Splide.js -->
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+
+<!-- Bootstrap (if used) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+      // Initialize ElevateZoom
+      $("#product-image").elevateZoom({
+          zoomLens: true,
+          lensBorderSize: 2,
+          lensBorderColour: 'black',
+          zoomWindowFadeIn: 500,
+          zoomWindowFadeOut: 750,
+          zoomWindowOffetx: 10,
+          zoomWindowOffety: 10,
+          borderSize: 2,
+          borderColour: 'white',
+      });
+
+      // Initialize Splide instances
+      var mainSlider = new Splide('#main-slider', {
+          type: 'fade', // or 'slide' depending on your design
+          pagination: false,
+          arrows: false,
+          cover: false,
+          heightRatio: 1,
+      }).mount();
+
+      var thumbnailSlider = new Splide('#thumbnail-slider', {
+          fixedWidth: 100,
+          fixedHeight: 80,
+          isNavigation: true,
+          gap: 3,
+          focus: 'center',
+          pagination: false,
+          cover: true,
+          trimSpace: true,
+      }).mount();
+
+      // Sync Splide instances
+      mainSlider.sync(thumbnailSlider);
+  });
+</script>
+
+{% endblock %}

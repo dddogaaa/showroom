@@ -1,0 +1,1019 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+    {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <style>
+      .navbar {
+        justify-content: space-between;
+      }
+
+      .nav-link {
+        color: #6c757d;
+      }
+
+      .navbar-nav .nav-link:hover {
+          color: #000;
+      }
+      
+      .phone-number {
+          color: #64196a;
+          font-size: 1rem;
+          white-space: nowrap;
+          position: relative;
+          cursor: pointer;
+      }
+      .btn-outline-success {
+        --bs-btn-color: #29aeb0;
+        --bs-btn-border-color: #29aeb0;
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #29aeb0;
+        --bs-btn-hover-border-color: #29aeb0;
+        --bs-btn-focus-shadow-rgb: 25, 135, 84;
+        --bs-btn-active-color: #29aeb0;
+        --bs-btn-active-bg: #29aeb0;
+        --bs-btn-active-border-color: #29aeb0;
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color: #29aeb0;
+        --bs-btn-disabled-bg: transparent;
+        --bs-btn-disabled-border-color: #29aeb0;
+        --bs-gradient: none;
+      }
+      .btn.active{
+        color: #64196a;
+      }
+      .form-control:focus {
+          color: var(--bs-body-color);
+          background-color: var(--bs-body-bg);
+          border-color: #534e7b;
+          outline: 0;
+          box-shadow: 0 0 0 .25rem rgba(109, 13, 253, 0.113);
+      }
+      .navbar-brand {
+          margin-right: 0px; 
+      }
+      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+          --bs-gutter-x: 1.5rem;
+          --bs-gutter-y: 0;
+          width: 90%;
+          padding-right: calc(var(--bs-gutter-x)* .5);
+          padding-left: calc(var(--bs-gutter-x)* .5);
+          margin-right: auto;
+          margin-left: auto;
+      }
+      .navbar-custom {
+          position: relative; /* Needed for positioning the border */
+          padding: 5px 40px;
+          display: flex;
+          flex-direction: row; /* Default layout is horizontal */
+          align-items: center;
+          justify-content: space-between; /* Adjust spacing between items */
+          z-index: 1020;
+      }
+      /* .navbar-custom::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 90%; 
+            border-bottom: 1px solid #dee2e6; 
+        }  */
+
+      .phone-number {
+        color: #1cb146;
+        font-size: 1rem;
+        white-space: nowrap;
+        position: relative;
+        cursor: pointer;
+      }
+      .phone-cont {
+        height: 30px;
+      }
+
+      .arrow {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            border: solid rgb(255, 255, 255);
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 5px;
+        }
+
+      /* Parallax Banner Styles */
+      .parallax-banner {
+        background-image: url("{% static 'core/img/banner.png' %}"); 
+        height: 700px; /* Adjust the height as needed */
+        background-attachment: fixed;
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        margin: 0px 20px;
+        border-radius: 5px;
+      }
+
+      /* Main Content Styles */
+      main {
+          padding: 20px;
+      }
+
+      /* Fixed Navbar Styles */
+      .navbar-fixed {
+          background: white; 
+          transition: top 0.3s, opacity 0.3s;
+          width: 100%;
+          z-index: 1030; 
+          position: relative; 
+          display: block; 
+      }
+
+      /* Fixed Position After Scrolling */
+      .navbar-fixed.fixed {
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .text-body-secondary {
+        --bs-text-opacity: 1;
+        color: #f8f9fac2 !important;
+      }
+
+      footer {
+        padding: 0px 90px;
+        background-color: #421644;
+        color: white;
+      }
+
+      .dropdown-menu {
+        --bs-dropdown-link-active-bg: #3c0f6b7d;
+      }
+
+      .offcanvas.offcanvas-start {
+        padding: 10px;
+        width: 340px;
+      }
+
+      .offcanvas .dropdown-menu{
+        --bs-dropdown-border-color: white;
+      }
+
+      .offcanvas ul.dropdown-menu.show {
+        position: relative !important; /* or relative based on your layout */
+        transform: none  !important;
+      }
+
+      #typing-text {
+        position: absolute;
+        left: 30px; /* Adjust according to the width of your logo */
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+        
+      .right {
+          transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+          right: -22px;
+      }
+
+      .left {
+          transform: rotate(135deg);
+          -webkit-transform: rotate(135deg);
+          left: -22px;
+      }
+
+      .wrapper {
+          max-width: 1500px;
+          width: 100%;
+          position: relative;
+      }
+
+      .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 0px 35px;
+      }
+
+      .carousel {
+          display: grid;
+          grid-auto-flow: column;
+          grid-auto-columns: calc((100% / 5) - 25px);
+          gap: 30px;
+          padding: 0px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          scrollbar-width: none;
+      }
+
+      .card {
+          position: relative;
+          scroll-snap-align: start;
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+      }
+
+      .dragging {
+          cursor: grab;
+          user-select: none;
+      }
+
+      #statistic {
+        background-color: rgba(191, 188, 221, 0.083);
+      }
+
+      @media screen and (max-width: 1280px) {
+        .carousel {
+          grid-auto-columns: calc((100% / 4) - 8px);
+          gap: 10px;
+        }
+      }
+      @media screen and (max-width: 768px) {
+          .carousel {
+              grid-auto-columns: calc((100% / 3) - 8px);
+          }
+      }
+      @media screen and (max-width: 600px) {
+          .carousel {
+              grid-auto-columns: calc((100% / 2) - 20px);
+          }
+      }
+      @media screen and (max-width: 550px) {
+          .carousel {
+              grid-auto-columns: calc((100% / 1) - 4px);
+              gap: 7px;
+          }
+          .products-container {
+            padding: 0px 5px; 
+          }
+      }
+
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        border: 1px solid rgba(0,0,0,.125);
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        border-radius: 0px;
+        padding: .5em;
+        box-shadow: 0px 3px 6px rgb(0, 0, 0, 0.1);
+      }
+
+      .dropdown-item {
+        padding: 5px 15px;
+        transition: background-color .4s ease-in-out;
+      }
+
+      .dropdown-item:hover {
+        background-color: #fff;
+        color: #64196a;
+      }
+
+      .sub-category .dropdown-item:hover {
+        background-color: #64196a;
+        color: #fff;
+      }
+
+      .dropdown-menu ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .drop:hover .dropdown-menu {
+        display: block;
+      }
+      
+      .dropdown-toggle::after {
+        margin-left: 0.5em; /* Adjust the spacing between the text and the arrow */
+      }
+
+      .dropdown-menu .dropdown-toggle::after {
+        margin-left: 0.5em; /* Adjust spacing for nested dropdowns */
+      }
+
+      .nav-item:hover .dropdown-menu {
+        display: block;
+        opacity: 1;
+      }
+
+      .nav-category {
+        height: 50px;
+        margin: 5px 20px;
+        background-color: #64196a;
+        color: #fff;
+        border-radius: 5px;
+      }
+
+      /* Medium screens (min-width: 768px) */
+      @media (min-width: 769px) {
+        .navbar-expand-md .navbar-collapse {
+            display: flex !important;
+            flex-basis: auto;
+            margin-right: 70px;
+        }
+      }
+
+      /* Small screens (max-width: 767px) */
+      @media (max-width: 767px) {
+        .navbar {
+            --bs-navbar-padding-x: 13px;
+        }
+        .phone-number {
+            color: #4b1987;
+            font-size: 13px;
+            white-space: nowrap;
+            display: none !important;
+        }
+        .navbar-custom::after {
+          display: none;
+        }
+        header {
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #search-bar {
+            display: none !important;
+        }
+        #about-us{
+            display: none !important;
+        }
+        #contact-us{
+            display: none !important;
+        }
+        .phone-cont{
+            height: 0px;
+        }
+        .navbar-custom {
+            gap: 20px; /* Space between items */
+            padding: 10px 10px;
+        }
+      }
+
+
+      /* Extra small screens (max-width: 500px) */
+      @media (max-width: 500px) {
+        .navbar-custom {
+            row-gap: 50px; /* Space between rows */
+            gap: 20px; /* Space between items */
+        }
+        .form-control {
+            padding: .275rem .65rem;
+            font-size: 14px;
+        }
+        .btn {
+            --bs-btn-padding-x: 0.65rem;
+            --bs-btn-padding-y: 0.275rem;
+            --bs-btn-font-family: ;
+            --bs-btn-font-size: 14px;
+        }
+
+      }
+        
+      @media (max-width:900px) {
+        .parallax-banner {
+          background-image: url("{% static 'core/img/banner-sm.png' %}"); 
+          height: 800px;
+        }
+      }
+
+
+      /* Small screens (e.g., smartphones) */
+      @media (max-width: 767px) {
+        .badge {
+            font-size: 10px;
+            margin-right: 3px;
+        }
+        .fs-sm-6{
+            font-size: 14px !important;
+        }
+        .card-body{
+            padding: 12px !important;
+        }    
+        .nav-category {
+          height: 0px;
+        }
+        .nav-category .dropdown-item {
+          display: none;
+        }
+        .parallax-banner {
+            background-image: url("{% static 'core/img/banner-xsm.png' %}");
+            height: 650px;
+        }
+      } 
+        
+      /* Medium screens (e.g., tablets) */
+      @media (min-width: 601px) and (max-width: 1400px) {
+        .badge {
+            font-size: 12px;
+        }
+        .fs-sm-6{
+            font-size: 14px !important;
+        }
+        
+      }
+        
+      /* Large screens (e.g., desktops) */
+      @media (min-width: 1400px) {
+        .badge {
+            font-size: 12px;
+        }
+        .fs-sm-6{
+            font-size: 16px;
+        }
+      }
+
+
+      .floating-buttons {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .floating-buttons .btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease, rotate 0.5s ease;
+      }
+
+      .floating-buttons .btn.chat {
+        opacity: 1;
+        transform: translateY(0);
+        background-color: #ffc107; 
+        transition: opacity 0.3s ease, transform 0.3s ease, rotate 0.5s ease;
+      }
+
+      .floating-buttons .btn.whatsapp {
+        background-color: #25D366; /* WhatsApp green */
+      }
+
+      .floating-buttons .btn.call {
+        background-color: #25D366; /* Green */
+      }
+
+      .floating-buttons .btn i {
+        pointer-events: none;
+      }
+
+      /* Show the other buttons on hover */
+      .floating-buttons:hover .btn {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .floating-buttons:hover .btn.chat {
+        transform: translateY(0) rotate(360deg);
+      }
+
+      /* Keep the chat button at the bottom visible by default */
+      .floating-buttons .btn.chat {
+        transform: translateY(0);
+        transition: none;
+      }
+
+      .cat {
+        width: 280px; /* Adjust as needed */
+        height: 260px; /* Adjust as needed */
+        margin: 10px;
+        overflow: hidden; /* Ensures the image doesn't overflow the container */
+      }
+
+      .cat img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image covers the entire div without distortion */
+      }
+
+      .text-overlay {
+        position: absolute;
+        bottom: 0px;
+        left: 0px; 
+        right: 0px; 
+        padding: 10px;
+        text-align: center;
+        color: white;
+        font-size: 18px; /* Adjust as needed */
+        background-color: #2f14597a; /* Optional: add background for better readability */
+        padding: 5px; /* Optional: add padding around the text */
+        line-height: 1.2;
+      }
+
+      @media (max-width: 600px) {
+      .cat {
+        width: 170px;
+        height: 230px;
+        margin: 1px;
+        overflow: hidden;
+      }
+    }
+
+    .products-container{
+      background: linear-gradient(148deg, rgb(222 211 43 / 25%) 0%, rgba(108, 9, 121, 0.2567620798319328) 31%, rgb(149 236 255 / 0%) 100%);
+    }
+
+    .products-container {
+        background: linear-gradient(135deg, #b0bec5, #641969fc, #29aeb057, #455a6400);
+        background-size: 200% 200%;
+        background-position: center;
+        border-radius: 5px;
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: background-position 0.5s ease-in-out;
+    }
+    </style>
+</head>
+
+<body class="m-0 border-0 bd-example m-0 border-0">
+    <header>
+    <div>
+      <!-- Normal Navbar for screens larger than md -->
+      <nav class="navbar navbar-expand-md navbar-custom">
+        <div class="d-flex align-items-center gap-1">
+          <div class="nav-item ms-3">
+              <a class="nav-link" id="about-us" href="{% url 'homepage' %}">Ana Sayfa</a>
+          </div>
+          <div class="nav-item ms-3">
+              <a class="nav-link" id="about-us" href="{% url 'productspage' %}">Mağaza</a>
+          </div>
+          <div class="nav-item ms-3">
+              <a class="nav-link" id="about-us" href="{% url 'aboutus' %}">Hakkımızda</a>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand logo" href="{% url 'homepage' %}">
+                <img style="height: 50px; width: auto;" src="{% static 'core/img/ayhan_yol_logo.png' %}" alt="">
+            </a>
+        </div>
+        <div class="d-flex align-items-center" id="search-bar">
+          <form class="d-flex" role="search" action="{% url 'productspage' %}">
+            <input class="form-control me-2" name="query" type="search" placeholder="Ürün Adı" aria-label="Search" value="{{ request.GET.query }}">
+            <button class="btn btn-outline-success" type="submit">Ara</button>
+          </form>
+
+          <div class="nav-item ms-3">
+            <a id="admin-home" href="{% url 'admin:index' %}" target="_blank" ><i class="fa-solid fa-house fa-xl" style="color: #2aaeb0;"></i></a>
+          </div>
+      
+        </div>
+        
+
+        <!-- Offcanvas toggle button -->
+        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      
+      <!-- Offcanvas menu for screens smaller than md -->
+      <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menü</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'homepage' %}">Ana Sayfa</a>
+            </li>
+            <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle" href="{% url 'productspage' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mağaza
+              </a>
+              <div class="dropdown-menu">
+                <ul>
+                  <li><a href="{% url 'productspage' %}" class="dropdown-item">Bütün Ürünler</a></li>
+                </ul>
+                {% for category in general_categories %}
+                <ul>
+                    <li><a class="dropdown-item" href="{% url 'productspage' %}?general_category={{ category.id }}">{{ category.name }}</a></li>
+                </ul>
+                {% endfor %}                
+              </div>
+            </li>            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'aboutus' %}">Hakkımızda</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Bize Ulaşın</a>
+            </li>
+            <li class="nav-item mt-2 mb-4">
+              <div class="nav-item">
+                <a id="admin-home" href="{% url 'admin:index' %}" target="_blank" ><i class="fa-solid fa-house" style="color: #2aaeb0;"></i></a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="d-flex align-items-center mb-1" id="offcanvas-search">
+                <form class="d-flex" role="search" action="{% url 'productspage' %}">
+                  <input class="form-control me-2" name="query" type="search" placeholder="Ürün Ara" aria-label="Search" value="{{ request.GET.query }}">
+                  <button class="btn btn-outline-success" type="submit">Ara</button>
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="cat-nav" class="nav-category mt-3 d-flex justify-content-evenly align-items-center">
+        {% for category in general_categories %}
+        <div class="nav-item dropdown">
+            {% if category.subcategories.all %}
+            <a class="dropdown-item dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" href="{% url 'productspage' %}?general_category={{ category.id }}">{{ category.name }}</a>
+            <div class="dropdown-menu">
+                <div class="sub-category">
+                    {% for subcategory in category.subcategories.all %}
+                    <div><a class="dropdown-item" href="{% url 'productspage' %}?sub_category={{ subcategory.id }}">{{ subcategory.name }}</a></div>
+                    {% if not forloop.last %}
+                    <div><hr class="dropdown-divider"></div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <a class="dropdown-item" href="{% url 'productspage' %}?general_category={{ category.id }}">{{ category.name }}</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </header>
+
+  {% block content %}
+
+  <!-- Parallax Banner -->
+  <section class="parallax-banner">
+        
+  </section>
+  <main>
+    <div class="d-flex justify-content-center mb-2 mt-2">
+      <div class="align-items-center fs-2 fw-light">ÖNE ÇIKANLAR <hr></div> 
+    </div>
+  <div class="products-container">
+    <div class="container mt-3">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 mb-2 mt-2">
+      <div class="wrapper">
+        <i class="arrow left"></i>
+        <ul class="carousel">
+          {% for product in best_sellers %}
+          <div class="col">
+            <div class="card h-100">
+                <a style="text-decoration: none; color: rgb(0, 0, 0);" href="{% url 'productspage_detail' product.slug %}">
+                  {% if product.first_image %}
+                  <img class="card-img-top img-fit" style="transform: scale(0.9); height: 270px; object-fit: contain;" src="{{ product.first_image }}" alt="{{ product.name }}"> 
+                  {% endif %}
+                  <div class="card-body justify-content-center border-top">
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_type }}</div>
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_volume }}</div>
+                    <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_cap_type }}</div>
+                  </div>
+                  <div class="card-body d-flex flex-column justify-content-center pt-0">
+                      <div class="fs-sm-6">{{ product.name  }}</div>
+                      <div class="fw-light text-gray fs-sm-6">{{ product.short_description }}</div>
+                  </div>
+                </a>
+              </div>
+            </div> 
+          {% endfor %}
+        </ul>
+        <i class="arrow right"></i>
+      </div>
+    </div>
+  </div>
+</div>
+    
+<div class="cats mt-5 d-flex justify-content-evenly flex-wrap">
+  <a href="{% url 'productspage' %}" class="cat position-relative col-md-3 col-6 mb-4">
+    <img src="{% static 'core/img/cat-1.png' %}" alt="Image 2" class="img-fluid">
+    <p class="text-overlay">Losyon Şişe Setleri</p>
+  </a>
+  <a href="{% url 'productspage' %}" class="cat position-relative col-md-3 col-6 mb-4">
+    <img src="{% static 'core/img/cat-2.png' %}" alt="Image 2" class="img-fluid">
+    <p class="text-overlay">Kozmetik Şişeler</p>
+  </a>
+  <a href="{% url 'productspage' %}" class="cat position-relative col-md-3 col-6 mb-4">
+    <img src="{% static 'core/img/cat-3.png' %}" alt="Image 2" class="img-fluid">
+    <p class="text-overlay">Özel Kapaklı Şişeler</p>
+  </a>
+  <a href="{% url 'productspage' %}" class="cat position-relative col-md-3 col-6 mb-4">
+    <img src="{% static 'core/img/cat-4.png' %}" alt="Image 2" class="img-fluid">
+    <p class="text-overlay">Şık Parfüm Şişeleri</p>
+  </a>
+</div>
+
+<div class="d-flex justify-content-center mb-2 mt-2">
+  <div class="align-items-center fs-2 fw-light">YENİ GELENLER <hr></div> 
+</div>
+  <div class="products-container mt-4">
+    <div class="container mt-3">
+      <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3 mb-2 mt-2">
+        <div class="wrapper">
+          <i class="arrow left"></i>
+          <ul class="carousel">
+            {% for product in newest_products %}
+            <div class="col">
+              <div class="card h-100">
+                  <a style="text-decoration: none; color: rgb(0, 0, 0);" href="{% url 'productspage_detail' product.slug %}">
+                    {% if product.first_image %}
+                    <img class="card-img-top img-fit" style="transform: scale(0.9); height: 270px; object-fit: contain;" src="{{ product.first_image }}" alt="{{ product.name }}"> 
+                    {% endif %}
+                    <div class="card-body justify-content-center border-top">
+                      <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_type }}</div>
+                      <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_volume }}</div>
+                      <div class="badge fw-light me-lg-2 me-sm-1 p-sm-1" style="background-color: #ffffff; color: rgb(0, 0, 0); border: 0.3px solid rgb(139, 137, 137);">{{ product.bottle_cap_type }}</div>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-center pt-0">
+                        <div class="fs-sm-6">{{ product.name  }}</div>
+                        <div class="fw-light text-gray fs-sm-6">{{ product.short_description }}</div>
+                    </div>
+                  </a>
+                </div>
+              </div> 
+            {% endfor %}
+          </ul>
+          <i class="arrow right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <div class="container my-5">
+    <div class="d-flex justify-content-center mb-2 mt-2">
+      <div class="align-items-center fs-2 fw-light">MAĞAZALARIMIZ<hr></div> 
+    </div>
+    <div class="row justify-content-center">
+      <!-- Trendyol Card -->
+      <div class="col-md-4">
+        <div class="card text-center shadow-lg mb-4 card-store">
+          <img src="https://cdn.freelogovectors.net/wp-content/uploads/2024/01/trendyol_logo-freelogovectors.net_.png" class="card-img-top" alt="Trendyol" style="height: 150px; object-fit: contain;">
+          <div class="card-body">
+            <a href="https://www.trendyol.com/magaza/ayhan-yol-m-142696?sst=0" class="btn btn-outline-success" target="_blank">Ziyaret Et</a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- N11 Card -->
+      <div class="col-md-4">
+        <div class="card text-center shadow-lg mb-4 card-store">
+          <img src="https://logowik.com/content/uploads/images/n11com-yeni7175.logowik.com.webp" class="card-img-top" alt="N11" style="height: 150px; object-fit: contain;">
+          <div class="card-body">
+            <a href="https://www.n11.com/magaza/bossise1" class="btn btn-outline-success" target="_blank">Ziyaret Et</a>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Hepsiburada Card -->
+      <div class="col-md-4">
+        <div class="card text-center shadow-lg mb-4 card-store">
+          <img src="https://www.ideasoft.com.tr/wp-content/uploads/2022/05/Hepsiburada-Logo-Transparan.png" class="card-img-top" alt="Hepsiburada" style="height: 150px; object-fit: contain;">
+          <div class="card-body">
+            <a href="https://www.hepsiburada.com/magaza/bossise1" class="btn btn-outline-success" target="_blank">Ziyaret Et</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+  <!-- Statistics Section -->
+  <div class="p-3" id="statistic">
+    <div class="row text-center mt-5">
+        <div class="col-md-3 col-6 mb-4">
+            <h2 class="counter" data-target="9.6">0</h2>
+            <p class="text-muted">Satıcı Puanı</p>
+        </div>
+        <div class="col-md-3 col-6 mb-4">
+            <h2 class="counter" data-target="910">0</h2>
+            <p class="text-muted">Takipçili Başarılı Satıcı</p>
+        </div>
+        <div class="col-md-3 col-6 mb-4">
+            <h2 class="counter" data-target="14">0</h2>
+            <p class="text-muted">Saat içinde Hızlı Teslimat</p>
+        </div>
+        <div class="col-md-3 col-6 mb-4">
+            <h2 class="counter" data-target="4.7">0</h2>
+            <p class="text-muted">Kullanıcı Puanı</p>
+        </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  <div class="floating-buttons">
+    <a href="tel:+905303441922" class="btn call">
+        <i class="fas fa-phone"></i>
+    </a>
+    <a href="https://wa.me/5303441922" class="btn whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="#" class="btn chat" >
+        <i class="fas fa-comments"></i>
+    </a>
+  </div>
+
+
+
+  
+  <footer class="pt-5">
+    <div class="row ">
+      <div class="col-6 mb-3">
+        <h5>Menü</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="{% url 'homepage' %}" class="nav-link p-0 text-body-secondary">Ana Sayfa</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'productspage' %}" class="nav-link p-0 text-body-secondary">Mağaza</a></li>
+          <li class="nav-item mb-2"><a href="{% url 'aboutus' %}" class="nav-link p-0 text-body-secondary">Hakkımızda</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-5 offset-md-1 mb-3">
+        <h5>Bize Ulaşın</h5>
+        <div class="d-flex gap-3 align-items-center mt-2 mb-2">
+            <a href="tel:+905303441922" class="d-flex gap-3 align-items-center" style="text-decoration: none; color: inherit;">
+                <i class="fa-solid fa-phone"></i>
+                <div style="color: #f8f9fac2;">+90 530 344 19 22</div>
+            </a>
+        </div>
+      
+          <div class="d-flex gap-3 align-items-center">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:ayhan.yol@gmail.com" style="color: #f8f9fac2; text-decoration: none;">
+                ayhan.yol@gmail.com
+            </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column flex-sm-row justify-content-between py-4">
+      <p>&copy; 2024 Ayhan Yol, Bütün Hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const counters = document.querySelectorAll('.counter');
+
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            let current = 0;  // Start from 0
+
+            const isInteger = Number.isInteger(target); // Check if target is an integer
+
+            const updateCount = () => {
+                const increment = target / 100;
+
+                if (current < target) {
+                    current += increment;
+                    if (current > target) { 
+                        current = target;  // Ensure current doesn't exceed target
+                    }
+                    // Format the number based on whether it's an integer or float
+                    counter.innerText = isInteger ? Math.round(current) : current.toFixed(1);
+                    requestAnimationFrame(updateCount);  // Use requestAnimationFrame for smoother updates
+                } else {
+                    // Ensure the final value is exact
+                    counter.innerText = isInteger ? Math.round(target) : target.toFixed(1);
+                }
+            };
+
+              // Set an initial delay before starting the count
+              setTimeout(updateCount, 3000); // 1000ms = 1 second delay
+
+        });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.carousel')
+    const arrowBtns = document.querySelectorAll('.wrapper i');
+    
+    const firstCardWidth = carousel.querySelector('.card').offsetWidth;
+      arrowBtns.forEach(btn => {
+          btn.addEventListener('click', () =>{
+              carousel.scrollLeft += btn.className === 'arrow left' ? -firstCardWidth :  firstCardWidth;
+          });
+      });
+    });
+
+  </script>
+  <script>
+    document.addEventListener('scroll', function() {
+        var navbarFixed = document.querySelector('.navbar-fixed');
+        var scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+        if (scrollPosition > 100) { // Adjust the number to control when the navbar becomes fixed
+            navbarFixed.classList.add('fixed');
+        } else {
+            navbarFixed.classList.remove('fixed');
+        }
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const text = "Bize Sorun";
+      const typingText = document.getElementById("typing-text");
+      let index = 0;
+      let deleting = false;
+      const typingSpeed = 150; // Time in milliseconds
+      const deletingSpeed = 75; // Time in milliseconds
+
+      function type() {
+        if (!deleting) {
+          if (index < text.length) {
+            typingText.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, typingSpeed);
+          } else {
+            // Start deleting after a short pause
+            deleting = true;
+            setTimeout(type, 1000);
+          }
+        } else {
+          if (index > 0) {
+            typingText.textContent = text.substring(0, index - 1);
+            index--;
+            setTimeout(type, deletingSpeed);
+          } else {
+            // Start typing again after a short pause
+            deleting = false;
+            setTimeout(type, 1000);
+          }
+        }
+      }
+
+      type();
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+          var swiper = new Swiper('.swiper-container', {
+              slidesPerView: 1,
+              spaceBetween: 10,
+              pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+              },
+              navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+              },
+              breakpoints: {
+                  640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                  },
+                  768: {
+                      slidesPerView: 3,
+                      spaceBetween: 30,
+                  },
+                  1024: {
+                      slidesPerView: 5,
+                      spaceBetween: 40,
+                  },
+              },
+          });
+      });
+      
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+
+
